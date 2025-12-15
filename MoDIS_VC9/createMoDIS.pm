@@ -921,6 +921,55 @@ sub update_lib_project
 	close F;
 }
 
+sub add_reference_to_modis
+{
+	my $modissuffix = shift;
+	my $modisuesim = shift;
+	my $libsln = shift;
+	my $libguid = shift;
+	my $out = "";
+	
+	$out .= "  <ItemGroup>\n";
+	
+	foreach my $sln_name (@$libsln)
+	{
+		my $lib_GUID = $libguid->{$sln_name};
+		
+		if (!($$modissuffix eq ""))
+		{
+			$out .= "    <ProjectReference Include=\"..\\$sln_name\\${sln_name}$$modissuffix.vcxproj\">\n";
+		}
+		else
+		{
+			$out .= "    <ProjectReference Include=\"..\\$sln_name\\${sln_name}.vcxproj\">\n";
+		}
+        $out .= "      <Project>\{$lib_GUID\}</Project>\n";
+		$out .= "    </ProjectReference>\n";
+	}
+	
+	$out .= "  </ItemGroup>\n";
+	
+	my $end_of_proj = "</Project>";
+	my $file = "MoDIS/$$modisuesim.vcxproj";
+	my $inserted = 0;
+	
+	open(my $fh, '<', $file) or die "Fail open file $file: $!";
+	my @lines = <$fh>;
+	close($fh);
+
+	for (my $i = 0; $i < scalar @lines; $i++) {
+		if (!$inserted && $lines[$i] =~ /$end_of_proj/) {
+			splice(@lines, $i, 0, $out);
+			$inserted = 1;
+			last;
+		}
+	}
+
+	open(my $fh, '>', $file) or die "Fail open file $file: $!";
+	print $fh @lines;
+	close($fh);
+}
+
 sub generate
 {
   my($out, $in, $cwd) = @_;

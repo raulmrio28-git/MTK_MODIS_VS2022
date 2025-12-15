@@ -478,6 +478,14 @@ createMoDIS::create_solution(
 	\%lib_GUID
 	);
 
+###############################################################
+# add reference to not build fail
+createMoDIS::add_reference_to_modis(
+	\$modis_suffix,
+	\$modis_uesim,
+	\@lib_SLN,
+	\%lib_GUID
+	);
 
 ###############################################################
 # Generate auto_header.h
