@@ -34,7 +34,8 @@ VCToolsInstallDir := $(VCToolsInstallDir)
 WindowsSDKDir := C:\Program Files (x86)\Windows Kits\10
 
 MSBuildPath := $(strip $(VSInstallDir))MSBuild\Current\Bin
-MSBuildPropPath := $(strip $(VSInstallDir))MSBuild\Microsoft\VC\v170
+
+MSBuildPropPath := $(strip $(VSInstallDir))MSBuild\Microsoft\VC\v170\\
 
 MODIS_SUFFIX :=
 MODIS_UESIM := MoDIS
