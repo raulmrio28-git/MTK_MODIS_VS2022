@@ -2,6 +2,7 @@
 # Please notice that this script is for MoDIS on VS2008 (VC9)
 # NOT suitable for MoDIS on VC6
 # 20251214 for VS2022
+# 20251215 fail path
 ########################################################################
 
 package createMoDIS;
@@ -44,7 +45,7 @@ sub create_vcproj_header
     <RootNamespace>MoDIS</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-  <Import Project=\"\$\(VCTargetsPath)\Microsoft.Cpp.Default.props\" />
+  <Import Project=\"\$\(VCTargetsPath)\\Microsoft.Cpp.Default.props\" />
 __STRING__
 ;
 	return $result;
@@ -53,7 +54,7 @@ __STRING__
 sub create_vcproj_foot
 {
 	return <<__STRING__
-  <Import Project=\"\$\(VCTargetsPath)\Microsoft.Cpp.targets\" />
+  <Import Project=\"\$\(VCTargetsPath)\\Microsoft.Cpp.targets\" />
   <ImportGroup Label=\"ExtensionTargets\">
   </ImportGroup>
 </Project>
@@ -120,16 +121,16 @@ sub create_vcproj_configuration
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <Import Project=\"\$\(VCTargetsPath)\Microsoft.Cpp.props\" />
+  <Import Project=\"\$\(VCTargetsPath)\\Microsoft.Cpp.props\" />
   <ImportGroup Label=\"ExtensionSettings\">
   </ImportGroup>
   <ImportGroup Label=\"Shared\">
   </ImportGroup>
   <ImportGroup Label=\"PropertySheets\" Condition=\"'\$\(Configuration)|\$\(Platform)'=='Debug|Win32'\">
-    <Import Project=\"\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
+    <Import Project=\"\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
   </ImportGroup>
   <ImportGroup Label=\"PropertySheets\" Condition=\"'\$\(Configuration)|\$\(Platform)'=='Release|Win32'\">
-    <Import Project=\"\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
+    <Import Project=\"\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
   </ImportGroup>
   <PropertyGroup Label=\"UserMacros\" />
   <PropertyGroup Condition=\"'\$\(Configuration)|\$\(Platform)'=='Debug|Win32'\">
@@ -594,16 +595,16 @@ sub create_main_vcproj_configuration
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <Import Project=\"\$\(VCTargetsPath)\Microsoft.Cpp.props\" />
+  <Import Project=\"\$\(VCTargetsPath)\\Microsoft.Cpp.props\" />
   <ImportGroup Label=\"ExtensionSettings\">
   </ImportGroup>
   <ImportGroup Label=\"Shared\">
   </ImportGroup>
   <ImportGroup Label=\"PropertySheets\" Condition=\"'\$\(Configuration)|\$\(Platform)'=='Debug|Win32'\">
-    <Import Project=\"\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
+    <Import Project=\"\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
   </ImportGroup>
   <ImportGroup Label=\"PropertySheets\" Condition=\"'\$\(Configuration)|\$\(Platform)'=='Release|Win32'\">
-    <Import Project=\"\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
+    <Import Project=\"\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props\" Condition=\"exists('\$\(UserRootDir)\\Microsoft.Cpp.\$\(Platform).user.props')\" Label=\"LocalAppDataPlatform\" />
   </ImportGroup>
   <PropertyGroup Label=\"UserMacros\" />
   <PropertyGroup Condition=\"'\$\(Configuration)|\$\(Platform)'=='Debug|Win32'\">
@@ -1003,7 +1004,7 @@ sub CopyFolder
 		elsif (-e $input2)
 		{
 			# file, copy directly
-			next if (($flag) && ($fd =~ /^(MoDIS|vc90)\.(pdb|idb|bsc|ilk)$/i));
+			next if (($flag) && ($fd =~ /^(MoDIS|vc90|vc143)\.(pdb|idb|bsc|ilk)$/i));
 			copy($input2, $output3) or die "Fail to copy $src\\$fd: $!\n";
 		}
 		else

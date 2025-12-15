@@ -1,4 +1,5 @@
 # 20251214 for VS2022
+# 20251215 updating for validation
 # *************************************************************************
 # Initialization
 # *************************************************************************
@@ -15,27 +16,25 @@ MODIS_EN_OPTION =
 # Folder Structure Config
 # *************************************************************************
 
-VSInstallDir := $(shell cmd /c echo %VSINSTALLDIR%)
-ifeq ($(strip $(VSInstallDir)),)
-    @echo "Not running from VS2022 Developer Command prompt."
-    @echo "Please running from VS2022 Developer Command prompt."
-	$(error VSINSTALLDIR is not set!!!!)
+ifeq ($(VSINSTALLDIR),)
+  $(error VSINSTALLDIR is not set!!!! please running from VS2022 Developer Command prompt)
 endif
+
+ifeq ($(VCToolsInstallDir),)
+  $(error VCToolsInstallDir is not set!!!! please running from VS2022 Developer Command prompt)
+endif
+
+VSInstallDir := $(VSINSTALLDIR)
 
 VSCommonDir := $(strip $(VSInstallDir))Common7
 MSVCDir := $(strip $(VSInstallDir))VC
 
-VCToolsInstallDir := $(shell cmd /c echo %VCToolsInstallDir%)
-ifeq ($(strip $(VCToolsInstallDir)),)
-    @echo "Not running from VS2022 Developer Command prompt."
-    @echo "Please running from VS2022 Developer Command prompt."
-	$(error VCToolsInstallDir is not set!!!!)
-endif
+VCToolsInstallDir := $(VCToolsInstallDir)
 
 WindowsSDKDir := C:\Program Files (x86)\Windows Kits\10
 
 MSBuildPath := $(strip $(VSInstallDir))MSBuild\Current\Bin
-MSBuildPropPath := $(strip $(VSInstallDir))MSBuild\Microsoft\VC\v170\\
+MSBuildPropPath := $(strip $(VSInstallDir))MSBuild\Microsoft\VC\v170
 
 MODIS_SUFFIX :=
 MODIS_UESIM := MoDIS
