@@ -14,6 +14,9 @@ The changes done are: output project to vcxproj format, using msbuild to build M
 
 2. Update MoDIS project by: "make <PROJECT> <TYPE> gen_modis"
 
+### Note
+
+If you want debugging to not show elevated permissions warning, remove the "      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>" line in MoDIS_VC9\createMoDIS.pm file
 ## CN
 
 这是用于修改MODIS构建工具以支持visualstudio 2022的补丁文件。
@@ -25,3 +28,7 @@ The changes done are: output project to vcxproj format, using msbuild to build M
 1. 下载该包后，必须将两个文件夹（make、MoDIS_VC9）复制到MAUI项目路径下
 
 2. 更新MoDIS项目：执行命令 `make <PROJECT> <TYPE> gen_modis`
+
+### 注
+
+如果希望调试不显示提升权限警告，请删除MoDIS_VC9\createMoDIS.pm文件中的“<UACExecutionLevel>RequireAdministrator</UACExecutionLevel>”行
